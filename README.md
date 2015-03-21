@@ -18,8 +18,8 @@ Options
 
 The following options are supported:
 
-  - _-i_ **30** - How many seconds to sleep between runs.
-  - _-c_ **/etc/tinybolo.conf** - Path to the configuration file.
-  - _-e_ **tcp://127.0.0.1:2999** - Bolo endpoint to submit to.
-  - _-F_ - Don't daemonize; stay in the foreground.
-  - _-D_ - Enable debugging output, to standard error.
+  - **-i** _30_ - How many seconds to sleep between runs.
+  - **-c** _/etc/tinybolo.conf_ - Path to the configuration file.
+  - **-e** _tcp://127.0.0.1:2999_ - Bolo endpoint to submit to.
+  - **-F** - Don't daemonize; stay in the foreground.
+  - **-D** - Enable debugging output, to standard error.
