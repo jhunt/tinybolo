@@ -1,0 +1,16 @@
+*~
+*.sw[a-p]
+*.o
+*.in
+aclocal.m4
+autom4te.cache
+tinybolo
+Makefile
+configure
+build
+config.h
+config.log
+config.status
+stamp-h1
+.deps
+tinybolo-*.tar.gz
