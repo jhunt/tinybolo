@@ -10,8 +10,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/time.h>
-#include <sys/socket.h>
-#include <netdb.h>
 
 #define PROC "/proc"
 
@@ -24,33 +22,6 @@ static int32_t time_s(void)
 	struct timeval tv;
 	gettimeofday(&tv, NULL);
 	return tv.tv_sec;
-}
-
-static char* fqdn(void)
-{
-	char nodename[1024];
-	nodename[1023] = '\0';
-	gethostname(nodename, 1023);
-
-	struct addrinfo hints, *info, *p;
-	memset(&hints, 0, sizeof(hints));
-	hints.ai_family   = AF_UNSPEC; /*either IPV4 or IPV6*/
-	hints.ai_socktype = SOCK_STREAM;
-	hints.ai_flags    = AI_CANONNAME;
-
-	int rc = getaddrinfo(nodename, NULL, &hints, &info);
-	if (rc != 0)
-		return NULL;
-
-	char *ret = NULL;
-	for (p = info; p != NULL; p = p->ai_next) {
-		if (strcmp(p->ai_canonname, nodename) == 0) continue;
-		ret = strdup(p->ai_canonname);
-		break;
-	}
-
-	freeaddrinfo(info);
-	return ret ? ret : strdup(nodename);
 }
 
 #define streq(a,b) (strcmp((a), (b)) == 0)
@@ -67,12 +38,12 @@ int collect_netdev(void);
 
 int main(int argc, char **argv)
 {
-	if (argc > 2) {
+	if (argc != 2) {
 		fprintf(stderr, "USAGE: %s prefix\n", argv[0]);
 		exit(1);
 	}
 
-	PREFIX = (argc == 2) ? argv[1] : fqdn();
+	PREFIX = argv[1];
 	int rc = 0;
 
 	rc += collect_meminfo();
