@@ -123,24 +123,6 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 
-	zmq = zmq_ctx_new();
-	if (!zmq) {
-		fprintf(stderr, "failed to create a 0MQ context: %s\n", zmq_strerror(errno));
-		exit(2);
-	}
-
-	z = zmq_socket(zmq, ZMQ_PUSH);
-	if (!z) {
-		fprintf(stderr, "failed to create a 0MQ socket: %s\n", zmq_strerror(errno));
-		exit(2);
-	}
-
-	rc = zmq_connect(z, endpoint);
-	if (rc != 0) {
-		fprintf(stderr, "failed to connect to '%s': %s\n", endpoint, zmq_strerror(errno));
-		exit(2);
-	}
-
 	io = fopen(config, "r");
 	if (!io) {
 		fprintf(stderr, "failed to read %s: %s\n", config, strerror(errno));
@@ -167,6 +149,24 @@ int main(int argc, char **argv)
 			fprintf(stderr, "failed to set session id: %s\n", strerror(errno));
 			exit(2);
 		}
+	}
+
+	zmq = zmq_ctx_new();
+	if (!zmq) {
+		fprintf(stderr, "failed to create a 0MQ context: %s\n", zmq_strerror(errno));
+		exit(2);
+	}
+
+	z = zmq_socket(zmq, ZMQ_PUSH);
+	if (!z) {
+		fprintf(stderr, "failed to create a 0MQ socket: %s\n", zmq_strerror(errno));
+		exit(2);
+	}
+
+	rc = zmq_connect(z, endpoint);
+	if (rc != 0) {
+		fprintf(stderr, "failed to connect to '%s': %s\n", endpoint, zmq_strerror(errno));
+		exit(2);
 	}
 
 	int off = 0, n = 0;
