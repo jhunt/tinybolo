@@ -5,6 +5,7 @@
 aclocal.m4
 autom4te.cache
 tinybolo
+openwrt
 Makefile
 configure
 build
@@ -12,5 +13,6 @@ config.h
 config.log
 config.status
 stamp-h1
+.dirstamp
 .deps
 tinybolo-*.tar.gz
