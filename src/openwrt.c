@@ -84,20 +84,20 @@ int collect_meminfo(void)
 		return 1;
 
 	struct {
-		uint64_t total;
-		uint64_t used;
-		uint64_t free;
-		uint64_t buffers;
-		uint64_t cached;
-		uint64_t slab;
+		uint32_t total;
+		uint32_t used;
+		uint32_t free;
+		uint32_t buffers;
+		uint32_t cached;
+		uint32_t slab;
 	} M = { 0 };
 	struct {
-		uint64_t total;
-		uint64_t used;
-		uint64_t free;
-		uint64_t cached;
+		uint32_t total;
+		uint32_t used;
+		uint32_t free;
+		uint32_t cached;
 	} S = { 0 };
-	uint64_t x;
+	uint32_t x;
 	ts = time_s();
 	while (fgets(buf, 8192, io) != NULL) {
 		/* MemTotal:        6012404 kB\n */
@@ -135,18 +135,18 @@ int collect_meminfo(void)
 	}
 
 	M.used = M.total - (M.free + M.buffers + M.cached + M.slab);
-	printf("SAMPLE %i %s:memory:total %lu\n",   ts, PREFIX, M.total);
-	printf("SAMPLE %i %s:memory:used %lu\n",    ts, PREFIX, M.used);
-	printf("SAMPLE %i %s:memory:free %lu\n",    ts, PREFIX, M.free);
-	printf("SAMPLE %i %s:memory:buffers %lu\n", ts, PREFIX, M.buffers);
-	printf("SAMPLE %i %s:memory:cached %lu\n",  ts, PREFIX, M.cached);
-	printf("SAMPLE %i %s:memory:slab %lu\n",    ts, PREFIX, M.slab);
+	printf("SAMPLE %i %s:memory:total %u\n",   ts, PREFIX, M.total);
+	printf("SAMPLE %i %s:memory:used %u\n",    ts, PREFIX, M.used);
+	printf("SAMPLE %i %s:memory:free %u\n",    ts, PREFIX, M.free);
+	printf("SAMPLE %i %s:memory:buffers %u\n", ts, PREFIX, M.buffers);
+	printf("SAMPLE %i %s:memory:cached %u\n",  ts, PREFIX, M.cached);
+	printf("SAMPLE %i %s:memory:slab %u\n",    ts, PREFIX, M.slab);
 
 	S.used = S.total - (S.free + S.cached);
-	printf("SAMPLE %i %s:swap:total %lu\n",   ts, PREFIX, S.total);
-	printf("SAMPLE %i %s:swap:cached %lu\n",  ts, PREFIX, S.cached);
-	printf("SAMPLE %i %s:swap:used %lu\n",    ts, PREFIX, S.used);
-	printf("SAMPLE %i %s:swap:free %lu\n",    ts, PREFIX, S.free);
+	printf("SAMPLE %i %s:swap:total %u\n",   ts, PREFIX, S.total);
+	printf("SAMPLE %i %s:swap:cached %u\n",  ts, PREFIX, S.cached);
+	printf("SAMPLE %i %s:swap:used %u\n",    ts, PREFIX, S.used);
+	printf("SAMPLE %i %s:swap:free %u\n",    ts, PREFIX, S.free);
 
 	fclose(io);
 	return 0;

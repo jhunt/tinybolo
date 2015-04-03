@@ -18,7 +18,7 @@
 #
 
 AC_PREREQ(2.68)
-AC_INIT([tinybolo], [1.0.0], [bugs@niftylogic.com])
+AC_INIT([tinybolo], [1.0.1], [bugs@niftylogic.com])
 
 AC_CONFIG_SRCDIR([src/tinybolo.c])
 AC_CONFIG_AUX_DIR([build])
